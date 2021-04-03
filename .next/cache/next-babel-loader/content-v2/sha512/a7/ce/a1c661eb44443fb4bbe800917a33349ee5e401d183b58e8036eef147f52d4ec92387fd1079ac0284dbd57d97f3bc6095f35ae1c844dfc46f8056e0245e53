@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var API_BASE_GECKO = \"https://api.coingecko.com/api/v3\";","map":{"version":3,"sources":["C:/Users/ChrisLifts/source/repos/imfeelingbullish-next/api/apiBase.ts"],"names":["API_BASE_GECKO"],"mappings":"AAAA,OAAO,IAAMA,cAAc,qCAApB","sourcesContent":["export const API_BASE_GECKO = `https://api.coingecko.com/api/v3`;"]},"metadata":{},"sourceType":"module"}
