@@ -1,0 +1,10 @@
+import { IconButton } from '@chakra-ui/button';
+import { useColorMode } from '@chakra-ui/color-mode';
+import { FaSun, FaMoon } from 'react-icons/all';
+
+const DarkModeButton = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return <IconButton onClick={toggleColorMode} icon={colorMode == 'dark' ? <FaSun /> : <FaMoon />} aria-label="Change Colour Mode" />;
+};
+
+export default DarkModeButton;
