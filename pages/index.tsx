@@ -15,22 +15,37 @@ export const Index = () => {
   //const { data, loading } = useAxios<ICGCoin[]>(GetAllCoinsUrl());
   const [data, setData] = useState<ICGCoin[]>([]);
   const [marketData, setMarketData] = useState<IMarketTableRow[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [timer, setTimer] = useState<number>(5);
+
   const { SCREEN_MOBILE } = useScreenSizes();
 
   const RefreshRequest = async (): Promise<ICGCoin[]> => {
     try {
+      setLoading(true);
       const response = await axios.get(GetAllCoinsUrl());
       setData(response.data);
     } catch (err) {
       return err?.response?.data;
     }
+    setLoading(false);
   };
+
+  useEffect(() => {
+    if (data.length <= 0) {
+      setInterval(() => setTimer(timer - 1), 1000);
+    }
+  }, [timer]);
+
+  // useEffect(() => {
+  //   RefreshRequest();
+  // }, []);
 
   useInterval(() => {
     if (marketData.length <= 0) {
       RefreshRequest();
     }
-  }, 10000);
+  }, 5000);
 
   useEffect(() => {
     if (data) {
@@ -59,11 +74,16 @@ export const Index = () => {
     }
   }, [data, SCREEN_MOBILE]);
 
-  if (marketData.length <= 0 || marketData.length <= 0) {
+  if (loading) {
     return <Spinner color="green.500" alignItems="center" justifyContent="center" />;
   }
 
-  return <MarketTable marketData={marketData} />;
+  return (
+    <Box>
+      {marketData.length <= 0 && <Text textAlign="center">Could not load data from CoinGecko 😭. Retrying in {timer}</Text>}
+      {marketData.length > 0 && <MarketTable marketData={marketData} />}
+    </Box>
+  );
 };
 
 export default Index;
