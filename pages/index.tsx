@@ -6,6 +6,7 @@ import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTabl
 import convertNumberToName from '../util/NumberConverter';
 import useScreenSizes from '../hooks/useScreenSizes';
 import axios from 'axios';
+import MarketTimeoutCounter from '../components/coinGecko/MarketTimeoutCounter';
 
 const MARKET_CAP_RANK_MIN = 50;
 const MARKET_CAP_RANK_MAX = 300;
@@ -16,7 +17,6 @@ export const Index = () => {
   const [data, setData] = useState<ICGCoin[]>([]);
   const [marketData, setMarketData] = useState<IMarketTableRow[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [timer, setTimer] = useState<number>(5);
 
   const { SCREEN_MOBILE } = useScreenSizes();
 
@@ -30,12 +30,6 @@ export const Index = () => {
     }
     setLoading(false);
   };
-
-  useEffect(() => {
-    if (data.length <= 0) {
-      setInterval(() => setTimer(timer - 1), 1000);
-    }
-  }, [timer]);
 
   // useEffect(() => {
   //   RefreshRequest();
@@ -80,7 +74,7 @@ export const Index = () => {
 
   return (
     <Box>
-      {marketData.length <= 0 && <Text textAlign="center">Could not load data from CoinGecko 😭. Retrying in {timer}</Text>}
+      {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
       {marketData.length > 0 && <MarketTable marketData={marketData} />}
     </Box>
   );
