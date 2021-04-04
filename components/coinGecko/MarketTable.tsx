@@ -1,7 +1,8 @@
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption } from '@chakra-ui/react';
-import { useMemo } from 'react';
-import { useTable } from 'react-table';
+import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, IconButton, Box, Flex } from '@chakra-ui/react';
+import React, { useMemo } from 'react';
+import { useTable, useSortBy } from 'react-table';
 import MarketTableRows from './MarketTableRows';
+import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 
 export interface IMarketTableRow {
   name: React.ReactNode;
@@ -43,22 +44,40 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
   );
 
   // Use the state and functions returned from useTable to build your UI
-  const { getTableProps, headerGroups, rows, prepareRow, getTableBodyProps } = useTable({
-    columns,
-    data: marketData,
-  });
+  const { getTableProps, headerGroups, rows, prepareRow, getTableBodyProps } = useTable(
+    {
+      columns,
+      data: marketData,
+    },
+    useSortBy
+  );
 
   return (
     <Table variant="striped" colorScheme="teal">
       <TableCaption>Great Tokenomics</TableCaption>
-      <Thead color="gray.500">
-        <Tr position="sticky" top={0} zIndex={9} bg="white" shadow="0 1px 0 rgba(0,0,0,0.1)">
-          {columns.map((headerGroup) => (
-            <Th key={headerGroup.Header} maxW="20%" textAlign="center" py={2} px={0}>
-              {headerGroup.Header}
-            </Th>
-          ))}
-        </Tr>
+      <Thead>
+        {headerGroups.map((headerGroup) => (
+          <Tr {...headerGroup.getHeaderGroupProps()} position="sticky" top={0} zIndex={9} bg="white" shadow="0 1px 0 rgba(0,0,0,0.1)">
+            {headerGroup.headers.map((column) => (
+              <Th {...column.getHeaderProps(column.getSortByToggleProps())} textAlign="center">
+                <Flex align="center" justify="center">
+                  <Box>{column.render('Header')}</Box>
+                  <span>
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <Box as={AiFillCaretDown} aria-label="sort" />
+                      ) : (
+                        <Box as={AiFillCaretUp} aria-label="sort" />
+                      )
+                    ) : (
+                      ''
+                    )}
+                  </span>
+                </Flex>
+              </Th>
+            ))}
+          </Tr>
+        ))}
       </Thead>
       <MarketTableRows data={marketData} rows={rows} prepareRow={prepareRow} getTableBodyProps={getTableBodyProps} />
       <Tfoot></Tfoot>

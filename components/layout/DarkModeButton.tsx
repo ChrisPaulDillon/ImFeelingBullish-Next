@@ -4,7 +4,15 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 
 const DarkModeButton = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  return <IconButton onClick={toggleColorMode} icon={colorMode == 'dark' ? <FaSun /> : <FaMoon />} aria-label="Change Colour Mode" />;
+  return (
+    <IconButton
+      onClick={toggleColorMode}
+      fontSize="15px"
+      variant="ghost"
+      icon={colorMode == 'dark' ? <FaSun /> : <FaMoon />}
+      aria-label="Change Colour Mode"
+    />
+  );
 };
 
 export default DarkModeButton;
