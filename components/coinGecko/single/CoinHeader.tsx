@@ -13,7 +13,7 @@ const CoinHeader: React.FC<ICoinHeaderProps> = ({ name, symbol, siteUrl, imageUr
   return (
     <Box>
       <Flex flexDir="column">
-        <Link href={siteUrl}>
+        <Link href={siteUrl} isExternal>
           <Flex justify="center">
             <Heading textAlign="center" mr={2}>
               {name + ' - ' + symbol?.toUpperCase()}

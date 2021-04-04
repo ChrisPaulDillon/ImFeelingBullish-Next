@@ -48,7 +48,7 @@ export const LeftNavItem: React.FC<INavItemProps> = ({ Icon, link, tooltip, memb
     <Box ml={2}>
       {userMemberStatusId >= memberStatusId && (
         <Stack spacing={1} isInline w="80%" py="0.5em" justify="space-between">
-          <Link href={link}>
+          <Link href={link} isExternal>
             <IconButton Icon={Icon} size="sm" label={tooltip} color="gray.100" onClick={() => undefined} aria-label="" />
           </Link>
         </Stack>
