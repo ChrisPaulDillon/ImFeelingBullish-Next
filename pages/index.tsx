@@ -45,7 +45,11 @@ export const Index = () => {
     if (data) {
       const filteredData = data.filter(
         (x) =>
-          x.market_cap_rank < MARKET_CAP_RANK_MAX && x.market_cap_rank >= MARKET_CAP_RANK_MIN && x.market_cap > MARKET_CAP_MIN && x.current_price < 1
+          x.market_cap_rank < MARKET_CAP_RANK_MAX &&
+          x.market_cap_rank >= MARKET_CAP_RANK_MIN &&
+          x.market_cap > MARKET_CAP_MIN &&
+          x.current_price < 1 &&
+          (x.total_volume / x.market_cap) * 100 >= 10
       );
       setMarketData(
         filteredData.map((x) => ({
@@ -71,6 +75,7 @@ export const Index = () => {
           marketCapRank: x.market_cap_rank,
           marketCap: `$${convertNumberToName(x.market_cap).toString()}`,
           dailyChange: `${x.market_cap_change_percentage_24h}%`,
+          volumeOverMarketcap: Math.round((x.total_volume / x.market_cap) * 100) + `%`,
         }))
       );
     }

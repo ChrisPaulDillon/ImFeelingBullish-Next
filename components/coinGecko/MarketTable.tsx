@@ -10,6 +10,7 @@ export interface IMarketTableRow {
   marketCapRank: number;
   marketCap: string;
   dailyChange: string;
+  volumeOverMarketcap: string;
 }
 
 interface IProps {
@@ -38,6 +39,10 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
       {
         Header: '24 Hr Change',
         accessor: 'dailyChange',
+      },
+      {
+        Header: 'Volume/Marketcap',
+        accessor: 'volumeOverMarketcap',
       },
     ],
     []

@@ -12,6 +12,10 @@ const determineCellColour = (cell) => {
   if (cell.column.id == 'dailyChange') {
     return cell.value.includes('-') ? 'red.500' : 'green.500';
   }
+  if (cell.column.id == 'volumeOverMarketcap') {
+    const val = parseInt(cell.value);
+    return val >= 10 && val <= 10 && 'green.500';
+  }
 };
 
 const MarketTableRows: React.FC<ITableRows> = ({ data, rows, prepareRow, getTableBodyProps, ...rest }) => {
