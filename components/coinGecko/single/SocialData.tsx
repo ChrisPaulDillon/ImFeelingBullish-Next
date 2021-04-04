@@ -1,8 +1,8 @@
 import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
-import { CommunityData } from './Types';
+import { CommunityData } from '../Types';
 import { SocialIcon } from 'react-social-icons';
-import convertNumberToName from '../../util/NumberConverter';
+import convertNumberToName from '../../../util/NumberConverter';
 
 interface ISocialData {
   communityData: CommunityData;

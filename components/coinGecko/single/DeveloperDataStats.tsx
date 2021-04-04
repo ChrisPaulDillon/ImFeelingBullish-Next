@@ -1,6 +1,6 @@
 import { Box, Flex, Icon, Text, Stack } from '@chakra-ui/react';
 import React from 'react';
-import { DeveloperData } from './Types';
+import { DeveloperData } from '../Types';
 import { SocialIcon } from 'react-social-icons';
 import { GoGitCommit, GoRepoForked, GoStar } from 'react-icons/go';
 

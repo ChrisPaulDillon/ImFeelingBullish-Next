@@ -14,7 +14,7 @@ const determineCellColour = (cell) => {
   }
   if (cell.column.id == 'volumeOverMarketcap') {
     const val = parseInt(cell.value);
-    return val >= 10 && val <= 10 && 'green.500';
+    return val >= 10 && val <= 50 && 'green.500';
   }
 };
 

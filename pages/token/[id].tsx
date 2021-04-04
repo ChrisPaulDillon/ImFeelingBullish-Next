@@ -3,8 +3,8 @@ import { NextPage } from 'next';
 import React from 'react';
 import { GetCoinByIdUrl } from '../../api/coinGecko';
 import { DetailedCoin } from '../../components/coinGecko/Types';
-import SocialData from '../../components/coinGecko/SocialData';
-import DeveloperDataStats from '../../components/coinGecko/DeveloperDataStats';
+import SocialData from '../../components/coinGecko/single/SocialData';
+import DeveloperDataStats from '../../components/coinGecko/single/DeveloperDataStats';
 import { useRouter } from 'next/dist/client/router';
 import { useAxios } from '../../hooks/useAxios';
 
