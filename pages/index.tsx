@@ -31,9 +31,9 @@ export const Index = () => {
     setLoading(false);
   };
 
-  // useEffect(() => {
-  //   RefreshRequest();
-  // }, []);
+  useEffect(() => {
+    RefreshRequest();
+  }, []);
 
   useInterval(() => {
     if (marketData.length <= 0) {
