@@ -59,7 +59,7 @@ export const Index = () => {
                 <Image src={x.image} boxSize="15px" />
               </Box>
               <Link href={`/token/${x.id}`}>
-                {SCREEN_MOBILE ? (
+                {!SCREEN_MOBILE ? (
                   <Text mb={1} fontWeight={400} minW="200px">
                     {x.name + '-' + x.symbol.toUpperCase()}
                   </Text>

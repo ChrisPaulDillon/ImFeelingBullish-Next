@@ -58,7 +58,7 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
   );
 
   return (
-    <Table variant="striped" colorScheme="teal">
+    <Table variant="striped" colorScheme="blue">
       <TableCaption>Great Tokenomics</TableCaption>
       <Thead>
         {headerGroups.map((headerGroup) => (
