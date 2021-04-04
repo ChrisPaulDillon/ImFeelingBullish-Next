@@ -1,19 +1,17 @@
-import { Box, Flex, Heading, Text } from '@chakra-ui/react';
-import axios from 'axios';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { Box, Heading } from '@chakra-ui/react';
+import { NextPage } from 'next';
 import React from 'react';
-import { GetAllCoinsUrl, GetCoinByIdUrl } from '../../api/coinGecko';
-import { CommunityData, DetailedCoin } from '../../components/coinGecko/Types';
-import { SocialIcon } from 'react-social-icons';
+import { GetCoinByIdUrl } from '../../api/coinGecko';
+import { DetailedCoin } from '../../components/coinGecko/Types';
 import SocialData from '../../components/coinGecko/SocialData';
 import DeveloperDataStats from '../../components/coinGecko/DeveloperDataStats';
+import { useRouter } from 'next/dist/client/router';
+import { useAxios } from '../../hooks/useAxios';
 
-interface IProps {
-  coinData: DetailedCoin;
-}
-
-const TokenIndex: NextPage<IProps> = ({ coinData }) => {
-  console.log(coinData);
+const TokenIndex: NextPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { data: coinData } = useAxios<DetailedCoin>(GetCoinByIdUrl(id as string));
 
   return (
     <Box>
@@ -23,22 +21,4 @@ const TokenIndex: NextPage<IProps> = ({ coinData }) => {
     </Box>
   );
 };
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await axios.get(GetAllCoinsUrl());
-
-  const paths = res?.data.map((coin) => ({
-    params: { id: coin.id.toString() },
-  }));
-
-  return { paths, fallback: false };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params.id as string;
-  const res = await axios.get(GetCoinByIdUrl(id));
-
-  return { props: { coinData: res.data } };
-};
-
 export default TokenIndex;
