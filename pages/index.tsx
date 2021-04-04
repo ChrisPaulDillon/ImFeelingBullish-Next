@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Spinner, Text, useInterval } from '@chakra-ui/react';
+import { Box, Flex, Image, Link, Spinner, Text, useInterval } from '@chakra-ui/react';
 import { useAxios } from '../hooks/useAxios';
 import { GetAllCoinsUrl, ICGCoin } from '../api/coinGecko';
 import React, { useEffect, useState } from 'react';
@@ -54,9 +54,17 @@ export const Index = () => {
               <Box mr={1}>
                 <Image src={x.image} boxSize="15px" />
               </Box>
-              <Text mb={1} fontWeight={400} minW="200px">
-                {x.name + '-' + x.symbol.toUpperCase()}
-              </Text>
+              <Link href={`/token/${x.id}`}>
+                {SCREEN_MOBILE ? (
+                  <Text mb={1} fontWeight={400} minW="200px">
+                    {x.name + '-' + x.symbol.toUpperCase()}
+                  </Text>
+                ) : (
+                  <Text mb={1} fontWeight={400} minW="200px">
+                    {x.symbol.toUpperCase()}
+                  </Text>
+                )}
+              </Link>
             </Flex>
           ),
           price: `$${x.current_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}`,
