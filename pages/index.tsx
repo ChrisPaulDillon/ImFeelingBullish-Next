@@ -4,6 +4,7 @@ import { GetAllCoinsUrl, ICGCoin } from '../api/coinGecko';
 import React, { useEffect, useState } from 'react';
 import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTable';
 import convertNumberToName from '../util/NumberConverter';
+import useScreenSizes from '../hooks/useScreenSizes';
 
 const MARKET_CAP_RANK_MIN = 50;
 const MARKET_CAP_RANK_MAX = 300;
@@ -12,6 +13,7 @@ const MARKET_CAP_MIN = 5000000;
 export const Index = () => {
   const { data, loading } = useAxios<ICGCoin[]>(GetAllCoinsUrl());
   const [marketData, setMarketData] = useState<IMarketTableRow[]>([]);
+  const { SCREEN_MOBILE } = useScreenSizes();
 
   useEffect(() => {
     if (data) {
@@ -26,9 +28,13 @@ export const Index = () => {
               <Box mr={1}>
                 <Image src={x.image} boxSize="15px" />
               </Box>
-              <Text mb={1} fontWeight={400} minW="200px">
-                {x.name} - {x.symbol.toUpperCase()}
-              </Text>
+              {!SCREEN_MOBILE ? (
+                <Text mb={1} fontWeight={400} minW="200px">
+                  {x.name + '-' + x.symbol.toUpperCase()}
+                </Text>
+              ) : (
+                <Text>{x.symbol.toUpperCase()}</Text>
+              )}
             </Flex>
           ),
           price: `$${x.current_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}`,
@@ -39,7 +45,7 @@ export const Index = () => {
         }))
       );
     }
-  }, [data]);
+  }, [data, SCREEN_MOBILE]);
 
   if (marketData.length <= 0 || marketData.length <= 0) {
     return <Spinner color="green.500" />;
