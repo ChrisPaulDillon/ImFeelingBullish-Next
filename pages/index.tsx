@@ -9,7 +9,7 @@ import MarketTimeoutCounter from '../components/coinGecko/MarketTimeoutCounter';
 import Spinner from '../components/common/Spinner';
 
 const MARKET_CAP_RANK_MIN = 50;
-const MARKET_CAP_RANK_MAX = 300;
+const MARKET_CAP_RANK_MAX = 400;
 const MARKET_CAP_MIN = 5000000;
 
 export const Index = () => {
@@ -49,7 +49,9 @@ export const Index = () => {
           x.market_cap_rank >= MARKET_CAP_RANK_MIN &&
           x.market_cap > MARKET_CAP_MIN &&
           x.current_price < 1 &&
-          (x.total_volume / x.market_cap) * 100 >= 10
+          (x.total_volume / x.market_cap) * 100 >= 10 &&
+          !x.name.includes('Finance') &&
+          !x.name.includes('USD')
       );
       setMarketData(
         filteredData.map((x) => ({
