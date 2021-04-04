@@ -1,5 +1,4 @@
-import { Box, Flex, Image, Link, Spinner, Text, useInterval } from '@chakra-ui/react';
-import { useAxios } from '../hooks/useAxios';
+import { Box, Flex, Image, Link, Text, useInterval } from '@chakra-ui/react';
 import { GetAllCoinsUrl, ICGCoin } from '../api/coinGecko';
 import React, { useEffect, useState } from 'react';
 import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTable';
@@ -7,6 +6,7 @@ import convertNumberToName from '../util/NumberConverter';
 import useScreenSizes from '../hooks/useScreenSizes';
 import axios from 'axios';
 import MarketTimeoutCounter from '../components/coinGecko/MarketTimeoutCounter';
+import Spinner from '../components/common/Spinner';
 
 const MARKET_CAP_RANK_MIN = 50;
 const MARKET_CAP_RANK_MAX = 300;
@@ -82,7 +82,7 @@ export const Index = () => {
   }, [data, SCREEN_MOBILE]);
 
   if (loading) {
-    return <Spinner color="green.500" alignItems="center" justifyContent="center" />;
+    return <Spinner />;
   }
 
   return (

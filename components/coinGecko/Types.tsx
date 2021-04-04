@@ -3,13 +3,14 @@ export interface DetailedCoin {
   symbol: string;
   name: string;
   asset_platform_id?: any;
+  description?: CoinDescription;
   block_time_in_minutes: number;
   hashing_algorithm: string;
   categories: string[];
   public_notice?: any;
   additional_notices: any[];
-  //links: Links;
-  //image: Image;
+  links: CoinLinks;
+  image: CoinImage;
   country_origin: string;
   genesis_date: string;
   sentiment_votes_up_percentage: number;
@@ -28,6 +29,34 @@ export interface DetailedCoin {
   status_updates: any[];
   last_updated: Date;
   tickers: Ticker[];
+}
+
+interface CoinDescription {
+  en: string;
+}
+export interface CoinLinks {
+  homepage: string[];
+  blockchain_site: string[];
+  official_forum_url: string[];
+  chat_url: string[];
+  announcement_url: string[];
+  twitter_screen_name: string;
+  facebook_username: string;
+  bitcointalk_thread_identifier?: any;
+  telegram_channel_identifier: string;
+  subreddit_url: string;
+  repos_url: ReposUrl;
+}
+
+interface ReposUrl {
+  github: string[];
+  bitbucket: any[];
+}
+
+interface CoinImage {
+  thumb: string;
+  small: string;
+  large: string;
 }
 
 export interface CommunityData {

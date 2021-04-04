@@ -31,4 +31,8 @@ export interface ICGCoin {
 }
 export const GetAllCoinsUrl = () => `${API_BASE_GECKO}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=300&page=1&sparkline=false`;
 
-export const GetCoinByIdUrl = (coinId: string) => `${API_BASE_GECKO}/coins/${coinId}`;
+export const GetCoinByIdUrl = (coinId: string) => {
+    if(coinId) {
+        return `${API_BASE_GECKO}/coins/${coinId}`;
+    }
+}
