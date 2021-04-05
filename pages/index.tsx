@@ -73,9 +73,9 @@ export const Index = () => {
               </Link>
             </Flex>
           ),
-          price: `$${x.current_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}`,
+          price: `$${x.current_price?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}`,
           marketCapRank: x.market_cap_rank,
-          marketCap: `$${convertNumberToName(x.market_cap).toString()}`,
+          marketCap: `$${convertNumberToName(x.market_cap)?.toString()}`,
           dailyChange: `${x.market_cap_change_percentage_24h}%`,
           volumeOverMarketcap: Math.round((x.total_volume / x.market_cap) * 100) + `%`,
         }))
