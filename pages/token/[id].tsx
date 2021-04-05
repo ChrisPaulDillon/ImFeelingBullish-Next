@@ -10,6 +10,7 @@ import { useAxios } from '../../hooks/useAxios';
 import Spinner from '../../components/common/Spinner';
 import CoinHeader from '../../components/coinGecko/single/CoinHeader';
 import SupportedExchanges from '../../components/coinGecko/single/SupportedExchanges';
+import { PageHead, PageContent } from '../../components/common/Pages';
 
 const TokenIndex: NextPage = () => {
   const router = useRouter();
@@ -34,16 +35,23 @@ const TokenIndex: NextPage = () => {
 
   return (
     <Box>
-      <CoinHeader
-        name={coinData?.name}
-        symbol={coinData?.symbol}
-        imageUrl={coinData?.image.large}
-        description={coinData?.description?.en}
-        siteUrl={coinData?.links?.homepage[0]}
+      <PageHead
+        title={coinData?.name}
+        description="Automatically generated tokenomics for crypto"
+        keywords="cryptocurrency, imfeelingbullish, tokenomics"
       />
-      <SocialData communityData={coinData?.community_data} links={coinData?.links} />
-      <DeveloperDataStats developerData={coinData?.developer_data} />
-      <SupportedExchanges supportedExchanges={supportedExchanges} />
+      <PageContent>
+        <CoinHeader
+          name={coinData?.name}
+          symbol={coinData?.symbol}
+          imageUrl={coinData?.image.large}
+          description={coinData?.description?.en}
+          siteUrl={coinData?.links?.homepage[0]}
+        />
+        <SocialData communityData={coinData?.community_data} links={coinData?.links} />
+        <DeveloperDataStats developerData={coinData?.developer_data} />
+        <SupportedExchanges supportedExchanges={supportedExchanges} />
+      </PageContent>
     </Box>
   );
 };

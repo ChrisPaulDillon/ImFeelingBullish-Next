@@ -7,6 +7,7 @@ import useScreenSizes from '../hooks/useScreenSizes';
 import axios from 'axios';
 import MarketTimeoutCounter from '../components/coinGecko/MarketTimeoutCounter';
 import Spinner from '../components/common/Spinner';
+import { PageContent, PageHead } from '../components/common/Pages';
 
 const MARKET_CAP_RANK_MIN = 50;
 const MARKET_CAP_RANK_MAX = 400;
@@ -89,11 +90,18 @@ export const Index = () => {
 
   return (
     <Box>
-      <Heading fontSize="md" textAlign="center" p={3}>
-        Disclaimer: Not Financial Advice
-      </Heading>
-      {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
-      {marketData.length > 0 && <MarketTable marketData={marketData} />}
+      <PageHead
+        title="Automated Tokenomics"
+        description="Automatically generated tokenomics for crypto"
+        keywords="cryptocurrency, imfeelingbullish, tokenomics"
+      />
+      <PageContent>
+        <Heading fontSize="md" textAlign="center" p={3}>
+          Disclaimer: Not Financial Advice
+        </Heading>
+        {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
+        {marketData.length > 0 && <MarketTable marketData={marketData} />}
+      </PageContent>
     </Box>
   );
 };

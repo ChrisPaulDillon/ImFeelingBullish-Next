@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
+import Head from 'next/head';
 
 export const Page: React.FC = ({ children, ...rest }) => {
   return (
@@ -23,4 +24,31 @@ export const Page: React.FC = ({ children, ...rest }) => {
       {children}
     </Box>
   );
+};
+
+interface IPageHeaderProps {
+  title: string;
+  description: string;
+  keywords: string;
+}
+
+export const PageHead: React.FC<IPageHeaderProps> = ({ title, description, keywords }) => {
+  return (
+    <Head>
+      <meta name="description" content={description} />
+      <title>
+        {title} | {process.env.NEXT_PUBLIC_SITE_NAME}
+      </title>
+      <meta name="keywords" content={keywords} />
+      <link rel="icon" href="/icons/favicon.ico" />
+    </Head>
+  );
+};
+
+interface IPageContentProps {
+  children: any;
+}
+
+export const PageContent: React.FC<IPageContentProps> = ({ children }) => {
+  return <main>{children}</main>;
 };
