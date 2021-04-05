@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Link, Text, useInterval } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Link, Text, useInterval } from '@chakra-ui/react';
 import { GetAllCoinsUrl, ICGCoin } from '../api/coinGecko';
 import React, { useEffect, useState } from 'react';
 import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTable';
@@ -89,6 +89,9 @@ export const Index = () => {
 
   return (
     <Box>
+      <Heading fontSize="md" textAlign="center" p={3}>
+        No this isn't Financial Advice Jack
+      </Heading>
       {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
       {marketData.length > 0 && <MarketTable marketData={marketData} />}
     </Box>
