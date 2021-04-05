@@ -90,7 +90,7 @@ export const Index = () => {
   return (
     <Box>
       <Heading fontSize="md" textAlign="center" p={3}>
-        No this isn't Financial Advice Jack
+        Disclaimer: Not Financial Advice
       </Heading>
       {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
       {marketData.length > 0 && <MarketTable marketData={marketData} />}
