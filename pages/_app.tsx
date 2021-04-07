@@ -8,6 +8,7 @@ export interface ModifiedAppInitialProps<A = { [key in string]: string }> {
 }
 
 export interface ExtendedAppProps<P = { [key in string]: string }, A = { [key in string]: string }> extends AppProps<P>, ModifiedAppInitialProps<A> {}
+
 const MyApp: NextComponentType<AppContext, ModifiedAppInitialProps, ExtendedAppProps> = ({ Component, pageProps, appProps }) => {
   return (
     <ChakraProvider resetCSS>
@@ -16,6 +17,14 @@ const MyApp: NextComponentType<AppContext, ModifiedAppInitialProps, ExtendedAppP
       </Layout>
     </ChakraProvider>
   );
+};
+
+MyApp.getInitialProps = async () => {
+  return {
+    appProps: {
+      /* ...someAppProps */
+    },
+  };
 };
 
 export default MyApp;
