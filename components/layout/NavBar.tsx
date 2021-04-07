@@ -23,7 +23,7 @@ const NavBar = () => {
           />
         </Box> */}
         <Banner mx={2} mt={1} textAlign="center" color="red.300">
-          I'mFeelingBullish.com
+          ImFeelingBullish.com
         </Banner>
         <DarkModeButton />
       </Stack>
