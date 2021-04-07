@@ -5,7 +5,9 @@ import MarketTableRows from './MarketTableRows';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 
 export interface IMarketTableRow {
-  name: React.ReactNode;
+  name: string;
+  symbol: string;
+  displayName: React.ReactNode;
   price: string;
   marketCapRank: number;
   marketCap: string;
@@ -22,7 +24,7 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
     () => [
       {
         Header: 'Name',
-        accessor: 'name',
+        accessor: 'displayName',
       },
       {
         Header: 'Price',

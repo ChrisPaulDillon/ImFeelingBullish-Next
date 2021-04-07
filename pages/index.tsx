@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image, Link, Text, useInterval } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Input, Link, Text, useInterval } from '@chakra-ui/react';
 import { GetAllCoinsUrl, ICGCoin } from '../api/coinGecko';
 import React, { useEffect, useState } from 'react';
 import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTable';
@@ -18,8 +18,9 @@ export const Index = () => {
   //const { data, loading } = useAxios<ICGCoin[]>(GetAllCoinsUrl());
   const [data, setData] = useState<ICGCoin[]>([]);
   const [marketData, setMarketData] = useState<IMarketTableRow[]>([]);
+  const [filteredMarketData, setFilteredMarketData] = useState<IMarketTableRow[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const { SCREEN_MOBILE } = useScreenSizes();
 
   const RefreshRequest = async (): Promise<ICGCoin[]> => {
@@ -36,6 +37,16 @@ export const Index = () => {
   useEffect(() => {
     RefreshRequest();
   }, []);
+
+  useEffect(() => {
+    if (searchTerm.length > 0) {
+      setFilteredMarketData(
+        marketData.filter((x) => x.name.toString().toLowerCase().includes(searchTerm) || x.symbol.toString().toLowerCase().includes(searchTerm))
+      );
+    } else {
+      setFilteredMarketData([]);
+    }
+  }, [searchTerm]);
 
   useInterval(() => {
     if (marketData.length <= 0) {
@@ -57,21 +68,17 @@ export const Index = () => {
       );
       setMarketData(
         filteredData.map((x) => ({
-          name: (
+          name: x.name,
+          symbol: x.symbol,
+          displayName: (
             <Flex justify="center" align="center">
               <Box mr={1}>
                 <Image src={x.image} boxSize="15px" />
               </Box>
-              <Link href={`/token/${x.id}`} isExternal>
-                {!SCREEN_MOBILE ? (
-                  <Text mb={1} fontWeight={400} minW="200px">
-                    {x.name + '-' + x.symbol.toUpperCase()}
-                  </Text>
-                ) : (
-                  <Text mb={1} fontWeight={400} minW="200px">
-                    {x.symbol.toUpperCase()}
-                  </Text>
-                )}
+              <Link href={`/token/${x.id}`}>
+                <Text mb={1} fontWeight={400} minW="200px">
+                  {x.name + '-' + x.symbol.toUpperCase()}
+                </Text>
               </Link>
             </Flex>
           ),
@@ -100,10 +107,13 @@ export const Index = () => {
         <Heading fontSize="md" textAlign="center" p={3}>
           Disclaimer: Not Financial Advice
         </Heading>
+        <Flex p={4} justifyContent="center" justifySelf="center" alignItems="center" alignSelf="center">
+          <Input placeholder="Search for a coin..." w="80%" p={4} justifyContent="center" onChange={(e) => setSearchTerm(e.target.value)} />
+        </Flex>
         {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
 
-        {!SCREEN_MOBILE && marketData.length > 0 && <MarketTable marketData={marketData} />}
-        {SCREEN_MOBILE && marketData.length > 0 && <CoinMobileContainer coinData={marketData} />}
+        {!SCREEN_MOBILE && marketData.length > 0 && <MarketTable marketData={filteredMarketData.length > 0 ? filteredMarketData : marketData} />}
+        {SCREEN_MOBILE && marketData.length > 0 && <CoinMobileContainer coinData={filteredMarketData.length > 0 ? filteredMarketData : marketData} />}
       </PageContent>
     </Box>
   );
