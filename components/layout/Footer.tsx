@@ -1,8 +1,9 @@
-import { Box, Container, Link, SimpleGrid, Stack, Text, Flex, Tag, useColorModeValue, Image } from '@chakra-ui/react';
+import { Box, Container, Link, SimpleGrid, Stack, Text, Flex, Tag, useColorModeValue } from '@chakra-ui/react';
+import Image from 'next/image';
 import { ReactNode } from 'react';
 
 const Logo = (props: any) => {
-  return <Image src="./icons/favicon.png" boxSize="50px" />;
+  return <Image src="/icons/favicon.png" alt="ImFeelingBullish" width={50} height={50} />;
 };
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
