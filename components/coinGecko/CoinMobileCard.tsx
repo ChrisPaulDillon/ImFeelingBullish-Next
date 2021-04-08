@@ -4,6 +4,7 @@ import { Heading, Avatar, Box, Center, Image, Flex, Text, Stack, Button, useColo
 interface ICoinMobileCardProps {
   coinData: IMarketTableRow;
 }
+
 const CoinMobileCard: React.FC<ICoinMobileCardProps> = ({ coinData }) => {
   return (
     <Center py={6}>
@@ -11,7 +12,7 @@ const CoinMobileCard: React.FC<ICoinMobileCardProps> = ({ coinData }) => {
         <Box p={6}>
           <Stack spacing={0} align={'center'} mb={5}>
             <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'} textAlign="center">
-              {coinData.name}
+              {coinData.displayName}
             </Heading>
             <Text color={'gray.500'}>{coinData.price}</Text>
           </Stack>
@@ -32,7 +33,9 @@ const CoinMobileCard: React.FC<ICoinMobileCardProps> = ({ coinData }) => {
           </Stack>
           <Stack direction={'row'} justify={'center'} spacing={6} mt={3}>
             <Stack spacing={0} align={'center'}>
-              <Text fontWeight={600}>{coinData.dailyChange}</Text>
+              <Text fontWeight={600} textColor={coinData.dailyChange?.includes('-') ? 'red.500' : 'green.500'}>
+                {coinData.dailyChange}
+              </Text>
               <Text fontSize={'sm'} color={'gray.500'} textAlign="center">
                 Daily Change
               </Text>
