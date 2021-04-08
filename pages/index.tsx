@@ -104,9 +104,6 @@ export const Index = () => {
         keywords="cryptocurrency, imfeelingbullish, tokenomics"
       />
       <PageContent>
-        <Heading fontSize="md" textAlign="center" p={3}>
-          Disclaimer: Not Financial Advice
-        </Heading>
         <Flex p={4} justifyContent="center" justifySelf="center" alignItems="center" alignSelf="center">
           <Input placeholder="Search for a coin..." w="80%" p={4} justifyContent="center" onChange={(e) => setSearchTerm(e.target.value)} />
         </Flex>

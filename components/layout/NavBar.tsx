@@ -1,5 +1,5 @@
 import React from 'react';
-import { useColorMode, Flex, Box, IconButton, Link, Stack } from '@chakra-ui/react';
+import { useColorMode, Flex, Box, IconButton, Link, Stack, useColorModeValue } from '@chakra-ui/react';
 import { Banner } from '../common/Texts';
 import { IconType } from 'react-icons';
 import DarkModeButton from './DarkModeButton';
@@ -8,7 +8,16 @@ const NavBar = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <Flex as="nav" w="100%" justifyContent="flex" alignItems="space-between" minH="6vh" position="relative" top={0} borderBottom="1px">
+    <Flex
+      as="nav"
+      w="100%"
+      justifyContent="flex"
+      alignItems="space-between"
+      minH="6vh"
+      position="relative"
+      top={0}
+      borderBottom="1px"
+      borderColor={useColorModeValue('gray.400', 'gray.700')}>
       <Stack isInline w="100%" justify="space-between" align="center">
         {/* <Box mt={1}>
           <IconButton
