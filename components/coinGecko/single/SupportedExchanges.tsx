@@ -18,7 +18,7 @@ const SupportedExchanges: React.FC<ISupportExchangesProps> = ({ supportedExchang
             {x}
           </Text>
         ))}
-        )
+        
       </Flex>
     </Box>
   );

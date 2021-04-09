@@ -47,6 +47,22 @@ const CoinMobileCard: React.FC<ICoinMobileCardProps> = ({ coinData }) => {
               </Text>
             </Stack>
           </Stack>
+          <Stack direction={'row'} justify={'center'} spacing={8} mt={3}>
+            <Stack spacing={0} align={'center'}>
+              <Text fontWeight={600}>
+                {coinData.high_24h}
+              </Text>
+              <Text fontSize={'sm'} color={'gray.500'} textAlign="center">
+                24 Hr High
+              </Text>
+            </Stack>
+            <Stack spacing={0} align={'center'}>
+              <Text fontWeight={600}>{coinData.low_24h}</Text>
+              <Text fontSize={'sm'} color={'gray.500'}>
+                24 Hr Low
+              </Text>
+            </Stack>
+          </Stack>
           {/* <Button
             w={'full'}
             mt={8}
