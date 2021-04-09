@@ -9,6 +9,7 @@ import MarketTimeoutCounter from '../components/coinGecko/MarketTimeoutCounter';
 import Spinner from '../components/common/Spinner';
 import { PageContent, PageHead } from '../components/common/Pages';
 import CoinMobileContainer from '../components/coinGecko/CoinMobileContainer';
+import FilterForm from '../components/coinGecko/FilterForm';
 
 const MARKET_CAP_RANK_MIN = 50;
 const MARKET_CAP_RANK_MAX = 400;
@@ -71,12 +72,12 @@ export const Index = () => {
           name: x.name,
           symbol: x.symbol,
           displayName: (
-            <Flex justify="center" align="center">
+            <Flex justify="center" align="center"  minW="300px">
               <Box mr={1}>
                 <Image src={x.image} boxSize="15px" />
               </Box>
               <Link href={`/token/${x.id}`}>
-                <Text mb={1} fontWeight={400} minW="200px">
+                <Text mb={1} fontWeight={400}>
                   {x.name + '-' + x.symbol.toUpperCase()}
                 </Text>
               </Link>
@@ -87,6 +88,8 @@ export const Index = () => {
           marketCap: `$${convertNumberToName(x.market_cap)?.toString()}`,
           dailyChange: `${x.market_cap_change_percentage_24h}%`,
           volumeOverMarketcap: Math.round((x.total_volume / x.market_cap) * 100) + `%`,
+          high_24h: `$${x.high_24h}`,
+          low_24h: `$${x.low_24h}`
         }))
       );
     }
@@ -108,8 +111,7 @@ export const Index = () => {
           <Input placeholder="Search for a coin..." w="80%" p={4} justifyContent="center" onChange={(e) => setSearchTerm(e.target.value)} />
         </Flex>
         {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
-
-        {!SCREEN_MOBILE && marketData.length > 0 && <MarketTable marketData={filteredMarketData.length > 0 ? filteredMarketData : marketData} />}
+        {!SCREEN_MOBILE && marketData.length > 0 && <Flex justify='center' ><MarketTable marketData={filteredMarketData.length > 0 ? filteredMarketData : marketData} /></Flex>}
         {SCREEN_MOBILE && marketData.length > 0 && <CoinMobileContainer coinData={filteredMarketData.length > 0 ? filteredMarketData : marketData} />}
       </PageContent>
     </Box>
