@@ -13,6 +13,8 @@ export interface IMarketTableRow {
   marketCap: string;
   dailyChange: string;
   volumeOverMarketcap: string;
+  high_24h: string;
+  low_24h: string;
 }
 
 interface IProps {
@@ -46,6 +48,14 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
         Header: 'Volume/Marketcap',
         accessor: 'volumeOverMarketcap',
       },
+      {
+        Header: '24 Hr High',
+        accessor: 'high_24h',
+      },
+      {
+        Header: '24 Hr Low',
+        accessor: 'low_24h',
+      },
     ],
     []
   );
@@ -60,7 +70,8 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
   );
 
   return (
-    <Table variant="striped" colorScheme="blue">
+    <Box px={3}> 
+    <Table variant="striped" colorScheme="blue" >
       <TableCaption>Great Tokenomics</TableCaption>
       <Thead>
         {headerGroups.map((headerGroup) => (
@@ -89,6 +100,7 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
       <MarketTableRows data={marketData} rows={rows} prepareRow={prepareRow} getTableBodyProps={getTableBodyProps} />
       <Tfoot></Tfoot>
     </Table>
+    </Box>
   );
 };
 

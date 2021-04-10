@@ -5,8 +5,6 @@ import { IconType } from 'react-icons';
 import DarkModeButton from './DarkModeButton';
 
 const NavBar = () => {
-  const { colorMode } = useColorMode();
-
   return (
     <Flex
       as="nav"
@@ -26,12 +24,12 @@ const NavBar = () => {
             onClick={handleBurgerMenuPress}
             color={theme.colors.iconColor[colorMode]}
             aria-label=""
-            isRound
+            isRoundmod
             fontSize="1.25em"
             variant="ghost"
           />
         </Box> */}
-        <Banner mx={2} mt={1} textAlign="center" color="red.300">
+        <Banner mx={2} mt={1} textAlign="center" color={useColorModeValue('red.500', 'red.800')}>
           ImFeelingBullish.com
         </Banner>
         <DarkModeButton />

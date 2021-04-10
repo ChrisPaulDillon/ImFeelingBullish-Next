@@ -2,6 +2,7 @@ import { AppContext, AppProps } from 'next/app';
 import { NextComponentType } from 'next';
 import { ChakraProvider } from '@chakra-ui/react';
 import Layout from '../components/layout/Layout';
+import customTheme from '../chakra';
 
 export interface ModifiedAppInitialProps<A = { [key in string]: string }> {
   appProps: A;
@@ -11,7 +12,7 @@ export interface ExtendedAppProps<P = { [key in string]: string }, A = { [key in
 
 const MyApp: NextComponentType<AppContext, ModifiedAppInitialProps, ExtendedAppProps> = ({ Component, pageProps, appProps }) => {
   return (
-    <ChakraProvider resetCSS>
+    <ChakraProvider resetCSS theme={customTheme}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
