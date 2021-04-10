@@ -15,7 +15,7 @@ const TrendingCoins: React.FC<ITrendingCoinProps> = ({ trendingCoins }) => {
           <Heading textAlign="center" fontSize="3xl">
             Trending 🔥
           </Heading>
-          <Flex justify="center" mt={1}>
+          <Flex justify="center" mt={1} wrap="wrap">
             {trendingCoins?.map((x) => (
               <Box key={x.item.id}>
                 <TrendingCoinSingle trendingCoin={x.item} />
