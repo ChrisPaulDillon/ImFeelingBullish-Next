@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, Image, Input, Link, Text, useInterval } from '@chakra-ui/react';
-import { GetAllCoinsUrl, ICGCoin } from '../api/coinGecko';
+import { GetAllCoinsUrl, GetTrendingCoinsUrl, ICGCoin, TrendingCoin, TrendingResult } from '../api/coinGecko';
 import React, { useEffect, useState } from 'react';
 import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTable';
 import convertNumberToName from '../util/NumberConverter';
@@ -10,13 +10,15 @@ import Spinner from '../components/common/Spinner';
 import { PageContent, PageHead } from '../components/common/Pages';
 import CoinMobileContainer from '../components/coinGecko/CoinMobileContainer';
 import FilterForm from '../components/coinGecko/FilterForm';
+import { useAxios } from '../hooks/useAxios';
+import TrendingCoins from '../components/coinGecko/TrendingCoins';
 
 const MARKET_CAP_RANK_MIN = 50;
 const MARKET_CAP_RANK_MAX = 400;
 const MARKET_CAP_MIN = 5000000;
 
 export const Index = () => {
-  //const { data, loading } = useAxios<ICGCoin[]>(GetAllCoinsUrl());
+  const { data: trendingData, loading: trendLoading } = useAxios<TrendingResult>(GetTrendingCoinsUrl());
   const [data, setData] = useState<ICGCoin[]>([]);
   const [marketData, setMarketData] = useState<IMarketTableRow[]>([]);
   const [filteredMarketData, setFilteredMarketData] = useState<IMarketTableRow[]>([]);
@@ -72,7 +74,7 @@ export const Index = () => {
           name: x.name,
           symbol: x.symbol,
           displayName: (
-            <Flex justify="center" align="center"  minW="300px">
+            <Flex justify="center" align="center" minW="300px">
               <Box mr={1}>
                 <Image src={x.image} boxSize="15px" />
               </Box>
@@ -89,13 +91,13 @@ export const Index = () => {
           dailyChange: `${x.market_cap_change_percentage_24h}%`,
           volumeOverMarketcap: Math.round((x.total_volume / x.market_cap) * 100) + `%`,
           high_24h: `$${x.high_24h}`,
-          low_24h: `$${x.low_24h}`
+          low_24h: `$${x.low_24h}`,
         }))
       );
     }
   }, [data, SCREEN_MOBILE]);
 
-  if (loading) {
+  if (loading || trendLoading) {
     return <Spinner />;
   }
 
@@ -110,8 +112,13 @@ export const Index = () => {
         <Flex p={4} justifyContent="center" justifySelf="center" alignItems="center" alignSelf="center">
           <Input placeholder="Search for a coin..." w="80%" p={4} justifyContent="center" onChange={(e) => setSearchTerm(e.target.value)} />
         </Flex>
+        <TrendingCoins trendingCoins={trendingData?.coins} />
         {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
-        {!SCREEN_MOBILE && marketData.length > 0 && <Flex justify='center' ><MarketTable marketData={filteredMarketData.length > 0 ? filteredMarketData : marketData} /></Flex>}
+        {!SCREEN_MOBILE && marketData.length > 0 && (
+          <Flex justify="center">
+            <MarketTable marketData={filteredMarketData.length > 0 ? filteredMarketData : marketData} />
+          </Flex>
+        )}
         {SCREEN_MOBILE && marketData.length > 0 && <CoinMobileContainer coinData={filteredMarketData.length > 0 ? filteredMarketData : marketData} />}
       </PageContent>
     </Box>

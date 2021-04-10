@@ -36,3 +36,24 @@ export const GetCoinByIdUrl = (coinId: string) => {
         return `${API_BASE_GECKO}/coins/${coinId}`;
     }
 }
+
+export const GetTrendingCoinsUrl = () => `${API_BASE_GECKO}/search/trending`;
+
+
+export interface TrendingResult {
+    coins: Item[]
+}
+
+export interface Item {
+    item: TrendingCoin;
+}
+
+export interface TrendingCoin {
+    id: string;
+    name: string;
+    symbol: string;
+    market_cap_rank: number;
+    thumb: string;
+    large: string;
+    score: number;
+}

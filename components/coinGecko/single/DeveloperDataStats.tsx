@@ -10,9 +10,9 @@ interface IDeveloperDataProps {
 
 const DeveloperDataStats: React.FC<IDeveloperDataProps> = ({ developerData }) => {
   return (
-    <Flex p={4} justify="center" flexDir="column" align="center">
+    <Box>
       {developerData?.forks != 0 && developerData?.commit_count_4_weeks != 0 && developerData?.stars != 0 && (
-        <Box>
+        <Flex p={4} justify="center" flexDir="column" align="center">
           <SocialIcon url="https://github.com" />
           <Box mt={2}>
             <Stack flexDir="row" p={1} justify="space-between" isInline>
@@ -26,9 +26,9 @@ const DeveloperDataStats: React.FC<IDeveloperDataProps> = ({ developerData }) =>
               <Text textAlign="center">{developerData?.stars} Stars</Text> <Box as={GoStar} size="20px" aria-label="github commit" mt={2} />{' '}
             </Stack>
           </Box>
-        </Box>
+        </Flex>
       )}
-    </Flex>
+    </Box>
   );
 };
 
