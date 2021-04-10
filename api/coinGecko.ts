@@ -29,7 +29,7 @@ export interface ICGCoin {
     last_updated: Date
 
 }
-export const GetAllCoinsUrl = () => `${API_BASE_GECKO}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=300&page=1&sparkline=false`;
+export const GetAllCoinsUrl = () => `${API_BASE_GECKO}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false`;
 
 export const GetCoinByIdUrl = (coinId: string) => {
     if(coinId) {
