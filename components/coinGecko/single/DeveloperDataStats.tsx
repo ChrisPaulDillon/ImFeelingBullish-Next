@@ -11,19 +11,23 @@ interface IDeveloperDataProps {
 const DeveloperDataStats: React.FC<IDeveloperDataProps> = ({ developerData }) => {
   return (
     <Flex p={4} justify="center" flexDir="column" align="center">
-      <SocialIcon url="https://github.com" />
-      <Box mt={2}>
-        <Stack flexDir="row" p={1} justify="space-between" isInline>
-          <Text textAlign="center">{developerData?.forks} Forks</Text> <Box as={GoRepoForked} size="20px" aria-label="github fork" mt={2} />
-        </Stack>
-        <Stack flexDir="row" p={1} justify="space-between" isInline>
-          <Text textAlign="center">{developerData?.commit_count_4_weeks} Commits (4W)</Text>{' '}
-          <Box as={GoGitCommit} size="20px" aria-label="github commit" mt={2} />{' '}
-        </Stack>
-        <Stack flexDir="row" p={1} justify="space-between" isInline>
-          <Text textAlign="center">{developerData?.stars} Stars</Text> <Box as={GoStar} size="20px" aria-label="github commit" mt={2} />{' '}
-        </Stack>
-      </Box>
+      {developerData?.forks != 0 && developerData?.commit_count_4_weeks != 0 && developerData?.stars != 0 && (
+        <Box>
+          <SocialIcon url="https://github.com" />
+          <Box mt={2}>
+            <Stack flexDir="row" p={1} justify="space-between" isInline>
+              <Text textAlign="center">{developerData?.forks} Forks</Text> <Box as={GoRepoForked} size="20px" aria-label="github fork" mt={2} />
+            </Stack>
+            <Stack flexDir="row" p={1} justify="space-between" isInline>
+              <Text textAlign="center">{developerData?.commit_count_4_weeks} Commits (4W)</Text>{' '}
+              <Box as={GoGitCommit} size="20px" aria-label="github commit" mt={2} />{' '}
+            </Stack>
+            <Stack flexDir="row" p={1} justify="space-between" isInline>
+              <Text textAlign="center">{developerData?.stars} Stars</Text> <Box as={GoStar} size="20px" aria-label="github commit" mt={2} />{' '}
+            </Stack>
+          </Box>
+        </Box>
+      )}
     </Flex>
   );
 };

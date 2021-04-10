@@ -11,6 +11,7 @@ import Spinner from '../../components/common/Spinner';
 import CoinHeader from '../../components/coinGecko/single/CoinHeader';
 import SupportedExchanges from '../../components/coinGecko/single/SupportedExchanges';
 import { PageHead, PageContent } from '../../components/common/Pages';
+import PriceData from '../../components/coinGecko/single/PriceData';
 
 const TokenIndex: NextPage = () => {
   const router = useRouter();
@@ -48,6 +49,7 @@ const TokenIndex: NextPage = () => {
           description={coinData?.description?.en}
           siteUrl={coinData?.links?.homepage[0]}
         />
+        <PriceData currentPrice={coinData?.market_data?.current_price?.usd} />
         <SocialData communityData={coinData?.community_data} links={coinData?.links} />
         <DeveloperDataStats developerData={coinData?.developer_data} />
         <SupportedExchanges supportedExchanges={supportedExchanges} />

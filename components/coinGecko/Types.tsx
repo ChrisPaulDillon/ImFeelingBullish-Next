@@ -22,13 +22,21 @@ export interface DetailedCoin {
   community_score: number;
   liquidity_score: number;
   public_interest_score: number;
-  //market_data: MarketData;
+  market_data: MarketData;
   community_data: CommunityData;
   developer_data: DeveloperData;
   public_interest_stats: PublicInterestStats;
   status_updates: any[];
   last_updated: Date;
   tickers: Ticker[];
+}
+
+interface MarketData {
+  current_price: CurrentPrice;
+}
+
+interface CurrentPrice {
+  usd: number;
 }
 
 interface CoinDescription {
