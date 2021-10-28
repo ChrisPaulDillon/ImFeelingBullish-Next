@@ -16,7 +16,7 @@ import PriceData from '../../components/coinGecko/single/PriceData';
 const TokenIndex: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data: coinData, loading } = useAxios<DetailedCoin>(GetCoinByIdUrl(id as string));
+  const { data: coinData, loading } = useAxios<DetailedCoin>(GetCoinByIdUrl((id as string).toLowerCase()));
   const [supportedExchanges, setSupportedExchanges] = useState<string[]>();
 
   useEffect(() => {
