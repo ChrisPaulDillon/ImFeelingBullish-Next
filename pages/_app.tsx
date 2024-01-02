@@ -1,8 +1,8 @@
-import { AppContext, AppProps } from 'next/app';
-import { NextComponentType } from 'next';
 import { ChakraProvider } from '@chakra-ui/react';
-import Layout from '../components/layout/Layout';
+import { NextComponentType } from 'next';
+import { AppContext, AppProps } from 'next/app';
 import customTheme from '../chakra';
+import Layout from '../components/layout/Layout';
 
 export interface ModifiedAppInitialProps<A = { [key in string]: string }> {
   appProps: A;
