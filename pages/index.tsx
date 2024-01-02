@@ -1,17 +1,16 @@
-import { Box, Flex, Heading, Image, Input, Link, Text, useInterval } from '@chakra-ui/react';
-import { GetAllCoinsUrl, GetTrendingCoinsUrl, ICGCoin, TrendingCoin, TrendingResult } from '../api/coinGecko';
-import React, { useEffect, useState } from 'react';
-import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTable';
-import convertNumberToName from '../util/NumberConverter';
-import useScreenSizes from '../hooks/useScreenSizes';
+import { Box, Flex, Image, Input, Link, Text, useInterval } from '@chakra-ui/react';
 import axios from 'axios';
-import MarketTimeoutCounter from '../components/coinGecko/MarketTimeoutCounter';
-import Spinner from '../components/common/Spinner';
-import { PageContent, PageHead } from '../components/common/Pages';
+import { useEffect, useState } from 'react';
+import { GetAllCoinsUrl, GetTrendingCoinsUrl, ICGCoin, TrendingResult } from '../api/coinGecko';
 import CoinMobileContainer from '../components/coinGecko/CoinMobileContainer';
-import FilterForm from '../components/coinGecko/FilterForm';
-import { useAxios } from '../hooks/useAxios';
+import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTable';
+import MarketTimeoutCounter from '../components/coinGecko/MarketTimeoutCounter';
 import TrendingCoins from '../components/coinGecko/TrendingCoins';
+import { PageContent, PageHead } from '../components/common/Pages';
+import Spinner from '../components/common/Spinner';
+import { useAxios } from '../hooks/useAxios';
+import useScreenSizes from '../hooks/useScreenSizes';
+import convertNumberToName from '../util/NumberConverter';
 
 const MARKET_CAP_RANK_MIN = 50;
 const MARKET_CAP_RANK_MAX = 400;
