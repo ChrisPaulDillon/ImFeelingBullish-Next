@@ -1,8 +1,8 @@
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, IconButton, Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Table, TableCaption, Tfoot, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
-import { useTable, useSortBy } from 'react-table';
-import MarketTableRows from './MarketTableRows';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
+import { useSortBy, useTable } from 'react-table';
+import MarketTableRows from './MarketTableRows';
 
 export interface IMarketTableRow {
   name: string;
@@ -72,7 +72,7 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
 
   return (
     <Box px={3}>
-      <Table variant="striped" colorScheme="blue">
+      <Table variant="striped">
         <TableCaption>Great Tokenomics</TableCaption>
         <Thead>
           {headerGroups.map((headerGroup) => (
