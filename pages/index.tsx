@@ -12,18 +12,17 @@ import { useGetTrendingCoinsQuery } from '../data-access/useGetTrendingCoinsQuer
 import useScreenSizes from '../hooks/useScreenSizes';
 import convertNumberToName from '../util/NumberConverter';
 
-const MARKET_CAP_RANK_MIN = 50;
+const MARKET_CAP_RANK_MIN = 200;
 const MARKET_CAP_RANK_MAX = 400;
 const MARKET_CAP_MIN = 5000000;
 
 export const Index: NextPage = () => {
-  const { data: trendingData, isLoading: trendLoading } = useGetTrendingCoinsQuery();
-
   const [marketData, setMarketData] = useState<IMarketTableRow[]>([]);
   const [filteredMarketData, setFilteredMarketData] = useState<IMarketTableRow[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const { SCREEN_MOBILE } = useScreenSizes();
 
+  const { data: trendingData, isLoading: trendLoading } = useGetTrendingCoinsQuery();
   const { data, isLoading } = useGetAllCoinGeckoCoinsQuery();
 
   useEffect(() => {
@@ -35,12 +34,6 @@ export const Index: NextPage = () => {
       setFilteredMarketData([]);
     }
   }, [searchTerm]);
-
-  // useInterval(() => {
-  //   if (marketData.length <= 0) {
-  //     RefreshRequest();
-  //   }
-  // }, 5000);
 
   useEffect(() => {
     if (data) {
@@ -80,7 +73,7 @@ export const Index: NextPage = () => {
         }))
       );
     }
-  }, [data, SCREEN_MOBILE]);
+  }, [data]);
 
   if (isLoading || trendLoading) {
     return <Spinner />;
@@ -95,7 +88,7 @@ export const Index: NextPage = () => {
       />
       <PageContent>
         <Flex p={4} justifyContent="center" justifySelf="center" alignItems="center" alignSelf="center">
-          <Input placeholder="Search for a coin..." w="80%" p={4} justifyContent="center" onChange={(e) => setSearchTerm(e.target.value)} />
+          <Input placeholder="Search for a coin..." w="500px" p={4} justifyContent="center" onChange={(e) => setSearchTerm(e.target.value)} />
         </Flex>
         <TrendingCoins trendingCoins={trendingData?.coins} />
         {marketData.length <= 0 && <MarketTimeoutCounter data={data} />}
