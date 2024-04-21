@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Input, Link, Text } from '@chakra-ui/react';
+import { Box, Flex, HStack, Image, Input, Link, Text } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import CoinMobileContainer from '../components/coinGecko/CoinMobileContainer';
@@ -38,30 +38,26 @@ export const Index: NextPage = () => {
   useEffect(() => {
     if (data) {
       const filteredData = data.filter(
-        (x) =>
-          x.market_cap_rank < MARKET_CAP_RANK_MAX &&
-          x.market_cap_rank >= MARKET_CAP_RANK_MIN &&
-          x.market_cap > MARKET_CAP_MIN &&
-          x.current_price < 1 &&
-          (x.total_volume / x.market_cap) * 100 >= 10 &&
-          !x.name.includes('Finance') &&
-          !x.name.includes('USD')
+        (coinData) =>
+          coinData.market_cap_rank < MARKET_CAP_RANK_MAX &&
+          coinData.market_cap_rank >= MARKET_CAP_RANK_MIN &&
+          coinData.market_cap > MARKET_CAP_MIN &&
+          (coinData.total_volume / coinData.market_cap) * 100 >= 10 &&
+          !coinData.name.includes('USD')
       );
       setMarketData(
         filteredData.map((x) => ({
           name: x.name,
           symbol: x.symbol,
           displayName: (
-            <Flex justify="center" align="center" minW="300px">
-              <Box mr={1}>
+            <Link href={`/token/${x.id}`}>
+              <HStack minW="400px" justifyContent="center">
                 <Image src={x.image} boxSize="15px" />
-              </Box>
-              <Link href={`/token/${x.id}`}>
                 <Text mb={1} fontWeight={400}>
-                  {x.name + '-' + x.symbol.toUpperCase()}
+                  {x.name} ({x.symbol.toUpperCase()})
                 </Text>
-              </Link>
-            </Flex>
+              </HStack>
+            </Link>
           ),
           price: `$${x.current_price?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}`,
           marketCapRank: x.market_cap_rank,
