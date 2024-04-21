@@ -1,6 +1,6 @@
 import { ColorModeScript } from '@chakra-ui/react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import React from 'react';
+import { ColorSchemeScript } from '@mantine/core';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -123,6 +123,7 @@ class MyDocument extends Document {
             media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
             href="./icons/apple-splash-1536-2048.jpg"
           />
+          <ColorSchemeScript defaultColorScheme="auto" />
         </Head>
         <body>
           <ColorModeScript initialColorMode="system" />
