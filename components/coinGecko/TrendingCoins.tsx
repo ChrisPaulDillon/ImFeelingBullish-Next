@@ -1,7 +1,7 @@
-import { Flex, Box, Heading, Text, Link } from '@chakra-ui/react';
+import { Box, Flex, Heading, Link, Text } from '@chakra-ui/react';
 import React from 'react';
-import { Item, TrendingCoin } from '../../api/coinGecko';
 import { ImArrowUp } from 'react-icons/im';
+import { Item, TrendingCoin } from '../../api/coin-gecko-api';
 
 interface ITrendingCoinProps {
   trendingCoins: Item[];

@@ -1,22 +1,20 @@
-import { Box, Flex, Heading, Image } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { NextPage } from 'next';
-import React, { useEffect, useState } from 'react';
-import { GetCoinByIdUrl } from '../../api/coinGecko';
-import { DetailedCoin } from '../../components/coinGecko/Types';
-import SocialData from '../../components/coinGecko/single/SocialData';
-import DeveloperDataStats from '../../components/coinGecko/single/DeveloperDataStats';
 import { useRouter } from 'next/dist/client/router';
-import { useAxios } from '../../hooks/useAxios';
-import Spinner from '../../components/common/Spinner';
+import { useEffect, useState } from 'react';
 import CoinHeader from '../../components/coinGecko/single/CoinHeader';
-import SupportedExchanges from '../../components/coinGecko/single/SupportedExchanges';
-import { PageHead, PageContent } from '../../components/common/Pages';
+import DeveloperDataStats from '../../components/coinGecko/single/DeveloperDataStats';
 import PriceData from '../../components/coinGecko/single/PriceData';
+import SocialData from '../../components/coinGecko/single/SocialData';
+import SupportedExchanges from '../../components/coinGecko/single/SupportedExchanges';
+import { PageContent, PageHead } from '../../components/common/Pages';
+import Spinner from '../../components/common/Spinner';
+import { useGetCoinByCoinIdQuery } from '../../data-access/useGetCoinByCoinIdQuery';
 
 const TokenIndex: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data: coinData, loading } = useAxios<DetailedCoin>(GetCoinByIdUrl((id as string).toLowerCase()));
+  const { data: coinData, isLoading } = useGetCoinByCoinIdQuery(id as string);
   const [supportedExchanges, setSupportedExchanges] = useState<string[]>();
 
   useEffect(() => {
@@ -30,7 +28,7 @@ const TokenIndex: NextPage = () => {
     }
   }, [coinData]);
 
-  if (loading) {
+  if (isLoading) {
     return <Spinner />;
   }
 

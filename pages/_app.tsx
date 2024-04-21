@@ -1,7 +1,9 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { MantineProvider, createTheme } from '@mantine/core';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { NextComponentType } from 'next';
 import { AppContext, AppProps } from 'next/app';
+import { queryClient } from '../api/queryClient';
 import customTheme from '../chakra';
 import Layout from '../components/layout/Layout';
 
@@ -18,11 +20,13 @@ const theme = createTheme({
 const MyApp: NextComponentType<AppContext, ModifiedAppInitialProps, ExtendedAppProps> = ({ Component, pageProps, appProps }) => {
   return (
     <ChakraProvider resetCSS theme={customTheme}>
-      <MantineProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </MantineProvider>
+      <QueryClientProvider client={queryClient}>
+        <MantineProvider theme={theme}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </MantineProvider>
+      </QueryClientProvider>
     </ChakraProvider>
   );
 };
