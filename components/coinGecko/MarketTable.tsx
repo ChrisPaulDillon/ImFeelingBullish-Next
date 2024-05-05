@@ -4,11 +4,13 @@ import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { useSortBy, useTable } from 'react-table';
 import MarketTableRows from './MarketTableRows';
 
-export interface IMarketTableRow {
+export interface MarketTableRow {
   name: string;
   symbol: string;
   displayName: React.ReactNode;
   price: string;
+  ath: string;
+  percentFromAth: string;
   marketCapRank: number;
   marketCap: string;
   dailyChange: string;
@@ -17,11 +19,11 @@ export interface IMarketTableRow {
   low_24h: string;
 }
 
-interface IProps {
-  marketData: IMarketTableRow[];
+interface MarketTableProps {
+  marketData: MarketTableRow[];
 }
 
-const MarketTable: React.FC<IProps> = ({ marketData }) => {
+const MarketTable: React.FC<MarketTableProps> = ({ marketData }) => {
   const columns = useMemo(
     () => [
       {
@@ -32,6 +34,14 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
       {
         Header: 'Price',
         accessor: 'price',
+      },
+      {
+        Header: 'All Time High',
+        accessor: 'ath',
+      },
+      {
+        Header: 'Percent From ATH',
+        accessor: 'percentFromAth',
       },
       {
         Header: 'Market Cap Rank',
@@ -72,7 +82,7 @@ const MarketTable: React.FC<IProps> = ({ marketData }) => {
 
   return (
     <Box px={3}>
-      <Table variant="striped">
+      <Table>
         <TableCaption>Great Tokenomics</TableCaption>
         <Thead>
           {headerGroups.map((headerGroup) => (

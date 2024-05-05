@@ -1,7 +1,7 @@
-import { IconButton, Tbody, Td, Tr, Text } from '@chakra-ui/react';
+import { Tbody, Td, Text, Tr } from '@chakra-ui/react';
 import React from 'react';
 
-interface ITableRows {
+interface MarketTableRowsProps {
   data: any;
   rows: any;
   prepareRow: (value) => void;
@@ -13,12 +13,12 @@ const determineCellColour = (cell) => {
     return cell.value.includes('-') ? 'red.500' : 'green.500';
   }
   if (cell.column.id == 'volumeOverMarketcap') {
-    const val = parseInt(cell.value);
+    const val = Number(cell.value);
     return val >= 10 && val <= 50 && 'green.500';
   }
 };
 
-const MarketTableRows: React.FC<ITableRows> = ({ data, rows, prepareRow, getTableBodyProps, ...rest }) => {
+const MarketTableRows: React.FC<MarketTableRowsProps> = ({ data, rows, prepareRow, getTableBodyProps, ...rest }) => {
   return (
     <Tbody id="markets" {...getTableBodyProps()} {...rest}>
       {rows.map((row, i) => {

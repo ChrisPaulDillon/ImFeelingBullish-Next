@@ -2,7 +2,7 @@ import { Box, Flex, HStack, Image, Input, Link, Text } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import CoinMobileContainer from '../components/coinGecko/CoinMobileContainer';
-import MarketTable, { IMarketTableRow } from '../components/coinGecko/MarketTable';
+import MarketTable, { MarketTableRow } from '../components/coinGecko/MarketTable';
 import MarketTimeoutCounter from '../components/coinGecko/MarketTimeoutCounter';
 import TrendingCoins from '../components/coinGecko/TrendingCoins';
 import { PageContent, PageHead } from '../components/common/Pages';
@@ -12,13 +12,13 @@ import { useGetTrendingCoinsQuery } from '../data-access/useGetTrendingCoinsQuer
 import useScreenSizes from '../hooks/useScreenSizes';
 import convertNumberToName from '../util/NumberConverter';
 
-const MARKET_CAP_RANK_MIN = 200;
-const MARKET_CAP_RANK_MAX = 400;
+const MARKET_CAP_RANK_MIN = 100;
+const MARKET_CAP_RANK_MAX = 600;
 const MARKET_CAP_MIN = 5000000;
 
 export const Index: NextPage = () => {
-  const [marketData, setMarketData] = useState<IMarketTableRow[]>([]);
-  const [filteredMarketData, setFilteredMarketData] = useState<IMarketTableRow[]>([]);
+  const [marketData, setMarketData] = useState<MarketTableRow[]>([]);
+  const [filteredMarketData, setFilteredMarketData] = useState<MarketTableRow[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const { SCREEN_MOBILE } = useScreenSizes();
 
@@ -46,26 +46,28 @@ export const Index: NextPage = () => {
           !coinData.name.includes('USD')
       );
       setMarketData(
-        filteredData.map((x) => ({
-          name: x.name,
-          symbol: x.symbol,
+        filteredData.map((coinData) => ({
+          name: coinData.name,
+          symbol: coinData.symbol,
           displayName: (
-            <Link href={`/token/${x.id}`}>
+            <Link href={`/token/${coinData.id}`}>
               <HStack minW="400px" justifyContent="center">
-                <Image src={x.image} boxSize="15px" />
+                <Image src={coinData.image} boxSize="15px" />
                 <Text mb={1} fontWeight={400}>
-                  {x.name} ({x.symbol.toUpperCase()})
+                  {coinData.name} ({coinData.symbol.toUpperCase()})
                 </Text>
               </HStack>
             </Link>
           ),
-          price: `$${x.current_price?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}`,
-          marketCapRank: x.market_cap_rank,
-          marketCap: `$${convertNumberToName(x.market_cap)?.toString()}`,
-          dailyChange: `${x.market_cap_change_percentage_24h.toFixed(2)}%`,
-          volumeOverMarketcap: Math.round((x.total_volume / x.market_cap) * 100) + `%`,
-          high_24h: `$${x.high_24h}`,
-          low_24h: `$${x.low_24h}`,
+          price: `$${coinData.current_price?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}`,
+          ath: `$${coinData.ath.toFixed(2)}`,
+          percentFromAth: `${(((coinData.current_price - coinData.ath) / coinData.ath) * 100).toFixed(2)}%`,
+          marketCapRank: coinData.market_cap_rank,
+          marketCap: `$${convertNumberToName(coinData.market_cap)?.toString()}`,
+          dailyChange: `${coinData.market_cap_change_percentage_24h.toFixed(2)}%`,
+          volumeOverMarketcap: Math.round((coinData.total_volume / coinData.market_cap) * 100) + `%`,
+          high_24h: `$${coinData.high_24h.toFixed(2)}`,
+          low_24h: `$${coinData.low_24h.toFixed(2)}`,
         }))
       );
     }
